@@ -1,8 +1,8 @@
 package pdf
 
 import (
+	"github.com/diabeticMike/notion2pdf/entity"
 	"github.com/go-pdf/fpdf"
-	"github.com/notion2pdf/entity"
 )
 
 type File struct {

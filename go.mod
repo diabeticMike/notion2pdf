@@ -1,4 +1,4 @@
-module github.com/notion2pdf
+module github.com/diabeticMike/notion2pdf
 
 go 1.19
 

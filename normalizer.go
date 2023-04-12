@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/notion2pdf/entity"
-	"github.com/notion2pdf/pdf"
+	"github.com/diabeticMike/notion2pdf/entity"
+	"github.com/diabeticMike/notion2pdf/pdf"
 )
 
 func ToPDF(body []byte, filepath string) error {
