@@ -59,21 +59,23 @@ func (f *File) NumberedListItem(text entity.Text) {
 		f.pdf.WriteLinkString(0, strconv.Itoa(f.listCount)+". "+text.Content, text.Link.URL)
 		f.pdf.Ln(10)
 		f.setBaseFont()
+		f.listCount++
 		return
 	}
 	f.pdf.Cell(0, 0, strconv.Itoa(f.listCount)+". "+text.Content)
 	f.pdf.Ln(10)
+	f.listCount++
 }
 
 func (f *File) BulledListItem(text entity.Text) {
 	if text.Link != nil {
 		f.setFontForUrl()
-		f.pdf.WriteLinkString(0, "• "+text.Content, text.Link.URL)
+		f.pdf.WriteLinkString(0, `0xE2 0x2022 0x00002022`+text.Content, text.Link.URL)
 		f.pdf.Ln(10)
 		f.setBaseFont()
 		return
 	}
-	f.pdf.Cell(0, 0, "• "+text.Content)
+	f.pdf.Cell(0, 0, `0xE2 0x2022 0x00002022`+text.Content)
 	f.pdf.Ln(10)
 }
 
