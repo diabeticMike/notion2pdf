@@ -3,11 +3,13 @@ package pdf
 import (
 	"github.com/diabeticMike/notion2pdf/entity"
 	"github.com/go-pdf/fpdf"
+	"strconv"
 )
 
 type File struct {
-	pdf  *fpdf.Fpdf
-	name string
+	pdf       *fpdf.Fpdf
+	name      string
+	listCount int
 }
 
 func NewFile(name string) *File {
@@ -15,7 +17,7 @@ func NewFile(name string) *File {
 	pdf.AddPage()
 	pdf.SetFont("Arial", "", 10)
 
-	return &File{pdf: pdf, name: name}
+	return &File{pdf: pdf, name: name, listCount: 1}
 }
 
 func (f *File) Paragraph(text entity.Text) {
@@ -49,6 +51,34 @@ func (f *File) Save() error {
 func (f *File) Quote(text string) {
 	f.pdf.Cell(0, 0, "| "+text)
 	f.pdf.Ln(10)
+}
+
+func (f *File) NumberedListItem(text entity.Text) {
+	if text.Link != nil {
+		f.setFontForUrl()
+		f.pdf.WriteLinkString(0, strconv.Itoa(f.listCount)+". "+text.Content, text.Link.URL)
+		f.pdf.Ln(10)
+		f.setBaseFont()
+		return
+	}
+	f.pdf.Cell(0, 0, strconv.Itoa(f.listCount)+". "+text.Content)
+	f.pdf.Ln(10)
+}
+
+func (f *File) BulledListItem(text entity.Text) {
+	if text.Link != nil {
+		f.setFontForUrl()
+		f.pdf.WriteLinkString(0, "• "+text.Content, text.Link.URL)
+		f.pdf.Ln(10)
+		f.setBaseFont()
+		return
+	}
+	f.pdf.Cell(0, 0, "• "+text.Content)
+	f.pdf.Ln(10)
+}
+
+func (f *File) EndNumberedList() {
+	f.listCount = 1
 }
 
 func (f *File) Heading1(text string) {

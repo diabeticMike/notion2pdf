@@ -8,29 +8,31 @@ type Result struct {
 }
 
 type Block struct {
-	Object         string         `json:"object"`
-	ID             string         `json:"id"`
-	Parent         Parent         `json:"parent"`
-	CreatedTime    time.Time      `json:"created_time"`
-	LastEditedTime time.Time      `json:"last_edited_time"`
-	CreatedBy      CreatedBy      `json:"created_by"`
-	LastEditedBy   LastEditedBy   `json:"last_edited_by"`
-	HasChildren    bool           `json:"has_children"`
-	Archived       bool           `json:"archived"`
-	Type           string         `json:"type"`
-	Paragraph      *Paragraph     `json:"paragraph,omitempty"`
-	Quote          *Quote         `json:"quote,omitempty"`
-	Image          *Image         `json:"image,omitempty"`
-	Embed          *Embed         `json:"embed,omitempty"`
-	Todo           *Todo          `json:"to_do,omitempty"`
-	Toggle         *Toggle        `json:"toggle,omitempty"`
-	Page           *PageReference `json:"page,omitempty"`
-	ChildPage      *PageReference `json:"child_page,omitempty"`
-	Heading1       *Heading       `json:"heading_1,omitempty"`
-	Heading2       *Heading       `json:"heading_2,omitempty"`
-	Heading3       *Heading       `json:"heading_3,omitempty"`
-	Bookmark       *Bookmark      `json:"bookmark,omitempty"`
-	Callout        *Callout       `json:"callout,omitempty"`
+	Object           string            `json:"object"`
+	ID               string            `json:"id"`
+	Parent           Parent            `json:"parent"`
+	CreatedTime      time.Time         `json:"created_time"`
+	LastEditedTime   time.Time         `json:"last_edited_time"`
+	CreatedBy        CreatedBy         `json:"created_by"`
+	LastEditedBy     LastEditedBy      `json:"last_edited_by"`
+	HasChildren      bool              `json:"has_children"`
+	Archived         bool              `json:"archived"`
+	Type             string            `json:"type"`
+	Paragraph        *Paragraph        `json:"paragraph,omitempty"`
+	Quote            *Quote            `json:"quote,omitempty"`
+	Image            *Image            `json:"image,omitempty"`
+	Embed            *Embed            `json:"embed,omitempty"`
+	Todo             *Todo             `json:"to_do,omitempty"`
+	Toggle           *Toggle           `json:"toggle,omitempty"`
+	Page             *PageReference    `json:"page,omitempty"`
+	ChildPage        *PageReference    `json:"child_page,omitempty"`
+	Heading1         *Heading          `json:"heading_1,omitempty"`
+	Heading2         *Heading          `json:"heading_2,omitempty"`
+	Heading3         *Heading          `json:"heading_3,omitempty"`
+	Bookmark         *Bookmark         `json:"bookmark,omitempty"`
+	Callout          *Callout          `json:"callout,omitempty"`
+	NumberedListItem *NumberedListItem `json:"numbered_list_item,omitempty"`
+	BulledListItem   *BulledListItem   `json:"bulleted_list_item,omitempty"`
 }
 
 type Parent struct {
@@ -59,6 +61,16 @@ type RichText struct {
 type Text struct {
 	Content string `json:"content"`
 	Link    *Link  `json:"link"`
+}
+
+type NumberedListItem struct {
+	RichText []RichText `json:"rich_text"`
+	Color    string     `json:"color"`
+}
+
+type BulledListItem struct {
+	RichText []RichText `json:"rich_text"`
+	Color    string     `json:"color"`
 }
 
 type Link struct {

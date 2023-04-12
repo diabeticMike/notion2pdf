@@ -63,6 +63,23 @@ func ToPDF(body []byte, filepath string) error {
 			for j := range page.Blocks[i].Callout.RichText {
 				f.Heading3(page.Blocks[i].Callout.RichText[j].Text.Content)
 			}
+		case "numbered_list_item":
+			if page.Blocks[i].NumberedListItem == nil {
+				continue
+			}
+			for j := range page.Blocks[i].NumberedListItem.RichText {
+				f.NumberedListItem(page.Blocks[i].NumberedListItem.RichText[j].Text)
+			}
+			if len(page.Blocks) > i+1 && page.Blocks[i+1].Type != "numbered_list_item" {
+				f.EndNumberedList()
+			}
+		case "bulleted_list_item":
+			if page.Blocks[i].BulledListItem == nil {
+				continue
+			}
+			for j := range page.Blocks[i].BulledListItem.RichText {
+				f.BulledListItem(page.Blocks[i].BulledListItem.RichText[j].Text)
+			}
 		}
 	}
 
