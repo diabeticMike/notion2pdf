@@ -1,4 +1,4 @@
-package main
+package notion2pdf
 
 import (
 	"encoding/json"
