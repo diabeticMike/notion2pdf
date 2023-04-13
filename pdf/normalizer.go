@@ -1,6 +1,7 @@
 package pdf
 
 import (
+	"bytes"
 	"github.com/diabeticMike/notion2pdf/entity"
 	"github.com/go-pdf/fpdf"
 	"strconv"
@@ -44,8 +45,21 @@ func (f *File) Callout(text entity.Text) {
 	f.pdf.Ln(10)
 }
 
-func (f *File) Save() error {
+func (f *File) SaveToFile() error {
 	return f.pdf.OutputFileAndClose(f.name)
+}
+
+func (f *File) Save() ([]byte, error) {
+	defer f.pdf.Close()
+	var buffer bytes.Buffer
+	err := f.pdf.Output(&buffer)
+	if err != nil {
+		return nil, err
+	}
+
+	var body []byte
+	_, err = buffer.Read(body)
+	return nil, err
 }
 
 func (f *File) Quote(text string) {

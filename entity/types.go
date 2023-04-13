@@ -20,12 +20,6 @@ type Block struct {
 	Type             string            `json:"type"`
 	Paragraph        *Paragraph        `json:"paragraph,omitempty"`
 	Quote            *Quote            `json:"quote,omitempty"`
-	Image            *Image            `json:"image,omitempty"`
-	Embed            *Embed            `json:"embed,omitempty"`
-	Todo             *Todo             `json:"to_do,omitempty"`
-	Toggle           *Toggle           `json:"toggle,omitempty"`
-	Page             *PageReference    `json:"page,omitempty"`
-	ChildPage        *PageReference    `json:"child_page,omitempty"`
 	Heading1         *Heading          `json:"heading_1,omitempty"`
 	Heading2         *Heading          `json:"heading_2,omitempty"`
 	Heading3         *Heading          `json:"heading_3,omitempty"`
