@@ -6,14 +6,14 @@ import (
 	"github.com/diabeticMike/notion2pdf/pdf"
 )
 
-func ToPDF(body []byte, filepath string) error {
+func convert(body []byte) (*pdf.File, error) {
 	var page entity.Result
 	err := json.Unmarshal(body, &page)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	f := pdf.NewFile(filepath)
+	f := pdf.NewFile()
 	for i := range page.Blocks {
 		switch page.Blocks[i].Type {
 		case "paragraph":
@@ -83,6 +83,27 @@ func ToPDF(body []byte, filepath string) error {
 		}
 	}
 
-	f.Save()
-	return nil
+	return f, nil
+}
+
+func ConvertAndSaveToFile(body []byte, filepath string) error {
+	f, err := convert(body)
+	if err != nil {
+		return err
+	}
+
+	return f.SaveToFile(filepath)
+}
+
+func ConvertAndSave(body []byte) ([]byte, error) {
+	f, err := convert(body)
+	if err != nil {
+		return nil, err
+	}
+
+	pdfBytes, err := f.Save()
+	if err != nil {
+		return nil, err
+	}
+	return pdfBytes, nil
 }

@@ -9,16 +9,15 @@ import (
 
 type File struct {
 	pdf       *fpdf.Fpdf
-	name      string
 	listCount int
 }
 
-func NewFile(name string) *File {
+func NewFile() *File {
 	pdf := fpdf.New("P", "mm", "A4", "")
 	pdf.AddPage()
 	pdf.SetFont("Arial", "", 10)
 
-	return &File{pdf: pdf, name: name, listCount: 1}
+	return &File{pdf: pdf, listCount: 1}
 }
 
 func (f *File) Paragraph(text entity.Text) {
@@ -45,8 +44,8 @@ func (f *File) Callout(text entity.Text) {
 	f.pdf.Ln(10)
 }
 
-func (f *File) SaveToFile() error {
-	return f.pdf.OutputFileAndClose(f.name)
+func (f *File) SaveToFile(name string) error {
+	return f.pdf.OutputFileAndClose(name)
 }
 
 func (f *File) Save() ([]byte, error) {
