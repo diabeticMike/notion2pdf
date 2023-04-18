@@ -58,7 +58,10 @@ func (f *File) Save() ([]byte, error) {
 
 	var body []byte
 	_, err = buffer.Read(body)
-	return nil, err
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
 }
 
 func (f *File) Quote(text string) {
