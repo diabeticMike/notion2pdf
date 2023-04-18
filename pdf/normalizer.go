@@ -56,7 +56,7 @@ func (f *File) Save() ([]byte, error) {
 		return nil, err
 	}
 
-	var body []byte
+	body := make([]byte, buffer.Len())
 	_, err = buffer.Read(body)
 	if err != nil {
 		return nil, err
